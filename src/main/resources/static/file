@@ -1,0 +1,33 @@
+
+{
+    "email": "alice@example.com",
+    "password": "hashed_password_1"
+}
+alice@example.com
+
+{
+    "title": "минем тестовый заметкам",
+    "content": "Бу минем тестовый заметкам. Ул эшләр дип өметләнеп калам"
+}
+
+{
+    "title": "this is the name",
+    "content": "this is the note"
+}
+
+{
+    "username": ""
+    "email": "",
+    "password": ""
+}
+{
+    "email": "email@email.com",
+    "password": "rrr"
+}
+{
+    "title": "",
+    "content": "",
+    "latitude": "",
+    "longitude": "",
+    "imageUrl": ""
+}

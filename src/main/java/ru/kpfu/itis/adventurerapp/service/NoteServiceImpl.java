@@ -1,7 +1,7 @@
 package ru.kpfu.itis.adventurerapp.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.itis.adventurerapp.entity.Note;
 import ru.kpfu.itis.adventurerapp.entity.User;
 import ru.kpfu.itis.adventurerapp.repository.NoteRepository;
@@ -32,8 +32,9 @@ public class NoteServiceImpl implements NoteService {
         return noteRepository.findByIdAndUser(id, user);
     }
 
+    @Transactional
     @Override
-    public void deleteByIdAndUser(Long id, User user) {
-        noteRepository.deleteByIdAndUser(id, user);
+    public boolean deleteByIdAndUser(Long id, User user) {
+        return noteRepository.deleteByIdAndUser(id, user) > 0;
     }
 }

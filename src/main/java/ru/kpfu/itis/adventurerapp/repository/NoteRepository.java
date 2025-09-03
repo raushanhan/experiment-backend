@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findAllByUser(User user);
     Optional<Note> findByIdAndUser(Long id, User user);
-    void deleteByIdAndUser(Long id, User user);
+    int deleteByIdAndUser(Long id, User user);
 }

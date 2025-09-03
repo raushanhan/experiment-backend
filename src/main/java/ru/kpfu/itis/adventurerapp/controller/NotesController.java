@@ -43,4 +43,11 @@ public class NotesController {
         log.info("LOG - gave notes");
         return ResponseEntity.ok(noteMapper.toDtoList(notes));
     }
+
+    @DeleteMapping
+    public boolean deleteUserNote(@RequestParam long id,
+                                  @AuthenticationPrincipal User user) {
+        log.info("LOG - deleting note(id={})", id);
+        return noteService.deleteByIdAndUser(id, user);
+    }
 }

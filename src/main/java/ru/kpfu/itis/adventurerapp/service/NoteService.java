@@ -1,6 +1,5 @@
 package ru.kpfu.itis.adventurerapp.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.itis.adventurerapp.entity.Note;
 import ru.kpfu.itis.adventurerapp.entity.User;
 

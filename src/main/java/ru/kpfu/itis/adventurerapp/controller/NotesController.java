@@ -9,7 +9,6 @@ import ru.kpfu.itis.adventurerapp.dto.NoteCreateRequestDTO;
 import ru.kpfu.itis.adventurerapp.dto.NoteResponseDTO;
 import ru.kpfu.itis.adventurerapp.entity.Note;
 import ru.kpfu.itis.adventurerapp.entity.User;
-import ru.kpfu.itis.adventurerapp.mapper.NoteMapper;
 import ru.kpfu.itis.adventurerapp.mapper.NoteMapperImplementation;
 import ru.kpfu.itis.adventurerapp.service.NoteService;
 
@@ -34,6 +33,7 @@ public class NotesController {
         note.setUpdatedAt(LocalDateTime.now());
 
         Note saved = noteService.save(note);
+        log.info("LOG - added note {}", saved.toString());
         return ResponseEntity.ok(noteMapper.toDto(saved));
     }
 

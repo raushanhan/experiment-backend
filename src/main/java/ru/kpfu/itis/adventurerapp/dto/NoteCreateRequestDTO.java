@@ -2,6 +2,8 @@ package ru.kpfu.itis.adventurerapp.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,4 +15,5 @@ public class NoteCreateRequestDTO {
     private Double latitude;
     private Double longitude;
     private String imageUrl;
+    private LocalDateTime createdAt;
 }

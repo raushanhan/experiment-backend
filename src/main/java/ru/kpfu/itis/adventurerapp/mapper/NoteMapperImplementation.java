@@ -18,6 +18,8 @@ public class NoteMapperImplementation implements NoteMapper {
         res.setLongitude(dto.getLongitude());
         res.setLatitude(dto.getLatitude());
         res.setImageUrl(dto.getImageUrl());
+        res.setCreatedAt(dto.getCreatedAt());
+        res.setUpdatedAt(dto.getCreatedAt());
         return res;
     }
 

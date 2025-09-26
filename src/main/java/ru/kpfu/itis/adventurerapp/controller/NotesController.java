@@ -14,6 +14,7 @@ import ru.kpfu.itis.adventurerapp.service.NoteService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -27,10 +28,10 @@ public class NotesController {
     @PostMapping
     public ResponseEntity<NoteResponseDTO> createNote(@RequestBody NoteCreateRequestDTO dto,
                                                       @AuthenticationPrincipal User user) {
+        log.info("LOG - Creating note {}", dto.toString());
         Note note = noteMapper.toEntity(dto);
         note.setUser(user);
-        note.setCreatedAt(LocalDateTime.now());
-        note.setUpdatedAt(LocalDateTime.now());
+        note.setImageUrl("uploads/" + user.getId() + "/" + dto.getImageUrl());
 
         Note saved = noteService.save(note);
         log.info("LOG - added note {}", saved.toString());
@@ -44,10 +45,22 @@ public class NotesController {
         return ResponseEntity.ok(noteMapper.toDtoList(notes));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<NoteResponseDTO> getUserNote(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        log.info("LOG - entered getUserNote");
+        Optional<Note> note = noteService.findByIdAndUser(id, user);
+        if (note.isPresent()) {
+            log.info("LOG - gave note for user {}", note.toString());
+            return ResponseEntity.ok(noteMapper.toDto(note.get()));
+        }
+        else return ResponseEntity.notFound().build();
+    }
+
+
     @DeleteMapping
     public boolean deleteUserNote(@RequestParam long id,
                                   @AuthenticationPrincipal User user) {
-        log.info("LOG - deleting note(id={})", id);
+        log.info("LOG - deleting note (id={})", id);
         return noteService.deleteByIdAndUser(id, user);
     }
 }

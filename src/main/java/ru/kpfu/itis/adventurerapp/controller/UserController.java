@@ -21,9 +21,13 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> getCurrentUser(@AuthenticationPrincipal User user) {
-        UserDto dto = getUserDtoFromUser(user);
-        log.info(dto.toString());
-        return ResponseEntity.ok(dto);
+        if (user != null) {
+            log.info("LOG - Getting current user");
+            UserDto dto = getUserDtoFromUser(user);
+            log.info(dto.toString());
+            return ResponseEntity.ok(dto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{email}")

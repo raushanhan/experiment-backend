@@ -17,6 +17,7 @@ import ru.kpfu.itis.adventurerapp.security.JwtTokenProvider;
 import ru.kpfu.itis.adventurerapp.service.UserService;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -30,9 +31,10 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRegisterRequestDTO dto) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody UserRegisterRequestDTO dto) {
         if (userService.findByEmail(dto.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email уже зарегистрирован");
+            log.info("LOG - tried to register already existing email");
+            return ResponseEntity.badRequest().body(Map.of("message", "Email уже зарегистрирован"));
         }
 
         String hashedPassword = passwordEncoder.encode(dto.getPassword());
@@ -45,7 +47,7 @@ public class AuthController {
 
         userService.save(user);
 
-        return ResponseEntity.ok("Пользователь зарегистрирован");
+        return ResponseEntity.ok(Map.of("message", "Пользователь зарегистрирован"));
     }
 
     @PostMapping("/login")
@@ -60,7 +62,7 @@ public class AuthController {
 
         String token = jwtTokenProvider.generateToken(dto.getEmail());
 
-        log.info("LOG - finished login");
+        log.info("LOG - finished login {}", token);
         return ResponseEntity.ok(new UserLoginResponseDTO(token));
     }
 }
